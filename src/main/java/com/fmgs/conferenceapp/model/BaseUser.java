@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Set;
-
 @Document("user")
 public class BaseUser {
 
@@ -16,13 +14,13 @@ public class BaseUser {
     public String password;
 
     @JsonProperty("user_status")
-    private Set<Status> userStatus;
+    private String userStatus;
 
 
     public BaseUser() {
     }
 
-    public BaseUser(String email, String password, Set<Status> userStatus) {
+    public BaseUser(String email, String password, String userStatus) {
         this.email = email;
         this.password = password;
         this.userStatus = userStatus;
@@ -44,11 +42,11 @@ public class BaseUser {
         return password;
     }
 
-    public Set<Status> getUserStatus() {
+    public String getUserStatus() {
         return userStatus;
     }
 
-    public void setUserStatus(Set<Status> userStatus) {
+    public void setUserStatus(String userStatus) {
         this.userStatus = userStatus;
     }
 
