@@ -3,6 +3,8 @@ package com.fmgs.conferenceapp.controller;
 import com.fmgs.conferenceapp.model.BaseUser;
 import com.fmgs.conferenceapp.repository.BaseUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,9 +22,14 @@ public class BaseUserController {
 
     @PostMapping("/register")
     @CrossOrigin(origins = "*")
-    public void register(@RequestBody BaseUser baseUser) {
+    public ResponseEntity<String> register(@RequestBody BaseUser baseUser) {
 
-        repository.save(baseUser);
+        if (getBaseUserByEmail(baseUser.email) != null) {
+            return new ResponseEntity<>("This email is already in the database", HttpStatus.BAD_REQUEST);
+        } else {
+            repository.save(baseUser);
+            return new ResponseEntity<>("Welcome!", HttpStatus.OK);
+        }
     }
 
     @GetMapping("/users")
