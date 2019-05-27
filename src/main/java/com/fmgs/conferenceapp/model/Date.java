@@ -2,35 +2,38 @@ package com.fmgs.conferenceapp.model;
 
 public class Date {
 
-    private int day,month,year;
+    private String day, month, year;
 
-    public Date(int day, int month, int year) {
+    public Date(String day, String month, String year) {
         this.day = day;
         this.month = month;
         this.year = year;
     }
 
-    public int getDay() {
+    public Date() {
+    }
+
+    public String getDay() {
         return day;
     }
 
-    public void setDay(int day) {
+    public void setDay(String day) {
         this.day = day;
     }
 
-    public int getMonth() {
+    public String getMonth() {
         return month;
     }
 
-    public void setMonth(int month) {
+    public void setMonth(String month) {
         this.month = month;
     }
 
-    public int getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(String year) {
         this.year = year;
     }
 }

@@ -6,6 +6,15 @@ import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
+/*
+    How to delete the database:
+        ->in C:\Program Files\MongoDB\Server\4.0\bin
+            execute mongo in cmd
+        ->use conference (name of the db)
+        ->db.dropDatabase()
+ */
+
+
 @Configuration
 @EnableMongoRepositories("com.fmgs.conferenceapp.repository")
 @EnableMongoAuditing

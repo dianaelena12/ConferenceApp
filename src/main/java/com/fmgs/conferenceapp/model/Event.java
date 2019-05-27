@@ -5,8 +5,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Event {
     @JsonProperty("schedule")
     private PresentationSchedule presentationSchedule;
+    @JsonProperty("name")
     private String eventName;
     private String speaker;
+
+    public Event() {
+    }
 
     public Event(PresentationSchedule presentationSchedule, String eventName, String speaker) {
         this.presentationSchedule = presentationSchedule;
