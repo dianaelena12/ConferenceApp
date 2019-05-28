@@ -9,14 +9,15 @@ import java.util.Map;
 public class Conference {
 
     private Date eventDate;
-    private Date applicationDeadlie;
+    @JsonProperty("app_deadline")
+    private Date applicationDeadline;
     private Map<String, Event> itinerary;
     @JsonProperty("event_name")
     private String eventName;
 
-    public Conference(Date eventDate, Date applicationDeadlie, Map<String, Event> itinerary, String eventName) {
+    public Conference(Date eventDate, Date applicationDeadline, Map<String, Event> itinerary, String eventName) {
         this.eventDate = eventDate;
-        this.applicationDeadlie = applicationDeadlie;
+        this.applicationDeadline = applicationDeadline;
         this.itinerary = itinerary;
         this.eventName = eventName;
     }
@@ -25,12 +26,12 @@ public class Conference {
     public Conference() {
     }
 
-    public Date getApplicationDeadlie() {
-        return applicationDeadlie;
+    public Date getApplicationDeadline() {
+        return applicationDeadline;
     }
 
-    public void setApplicationDeadlie(Date applicationDeadlie) {
-        this.applicationDeadlie = applicationDeadlie;
+    public void setApplicationDeadline(Date applicationDeadlie) {
+        this.applicationDeadline = applicationDeadlie;
     }
 
     public Date geteventDate() {
