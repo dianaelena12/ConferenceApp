@@ -1,43 +1,56 @@
 package com.fmgs.conferenceapp.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Map;
 
+@Document("conference")
 public class Conference {
 
-    private Date date;
-    private Map<String,Event> itinerary;
+    private Date eventDate;
+    private Date applicationDeadlie;
+    private Map<String, Event> itinerary;
     @JsonProperty("event_name")
     private String eventName;
 
-    public Conference(Date date, Map<String, Event> itinerary, String eventName) {
-        this.date = date;
+    public Conference(Date eventDate, Date applicationDeadlie, Map<String, Event> itinerary, String eventName) {
+        this.eventDate = eventDate;
+        this.applicationDeadlie = applicationDeadlie;
         this.itinerary = itinerary;
         this.eventName = eventName;
     }
 
+
     public Conference() {
     }
 
-    public Date getDate() {
-        return date;
+    public Date getApplicationDeadlie() {
+        return applicationDeadlie;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setApplicationDeadlie(Date applicationDeadlie) {
+        this.applicationDeadlie = applicationDeadlie;
+    }
+
+    public Date geteventDate() {
+        return eventDate;
+    }
+
+    public void seteventDate(Date eventDate) {
+        this.eventDate = eventDate;
     }
 
     public String getEventName() {
         return eventName;
     }
 
-    public void reserveRoomForEvent(String room, Event event){
-        itinerary.put(room,event);
-    }
-
     public void setEventName(String eventName) {
         this.eventName = eventName;
+    }
+
+    public void reserveRoomForEvent(String room, Event event) {
+        itinerary.put(room, event);
     }
 
     public Map<String, Event> getItinerary() {
