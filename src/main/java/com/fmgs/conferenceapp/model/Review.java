@@ -1,38 +1,39 @@
 package com.fmgs.conferenceapp.model;
 
 import java.util.List;
+import java.util.Map;
 
 public class Review {
     //change from list to map<reviewerID,qualifier>
-    private List<Qualifiers> firstReview;
-    private List<Qualifiers> secondReview;
+    private Map<String,Qualifiers> firstReview;
+    private Map<String,Qualifiers> secondReview;
 
     public Review() {
     }
 
-    public List<Qualifiers> getFirstReview() {
+    public Map<String, Qualifiers> getFirstReview() {
         return firstReview;
     }
 
-    public void setFirstReview(List<Qualifiers> firstReview) {
+    public void setFirstReview(Map<String, Qualifiers> firstReview) {
         this.firstReview = firstReview;
     }
 
-    public List<Qualifiers> getSecondReview() {
+    public Map<String, Qualifiers> getSecondReview() {
         return secondReview;
     }
 
-    public void setSecondReview(List<Qualifiers> secondReview) {
+    public void setSecondReview(Map<String, Qualifiers> secondReview) {
         this.secondReview = secondReview;
     }
 
-    public void addReview(int qualifier) {
+    public void addReview(String reviewer, int qualifier) {
         Qualifiers qualifierEnum = Qualifiers.valueOf(qualifier);
-        firstReview.add(qualifierEnum);
+        firstReview.put(reviewer, qualifierEnum);
     }
 
-    public void reReview(int qualifier) {
+    public void reReview(String reviewer, int qualifier) {
         Qualifiers qualifierEnum = Qualifiers.valueOf(qualifier);
-        secondReview.add(qualifierEnum);
+        secondReview.put(reviewer, qualifierEnum);
     }
 }
