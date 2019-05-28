@@ -39,9 +39,9 @@ public class BaseUserController {
     }
 
 
-    @GetMapping("/users/{email}")
+    @GetMapping("/users/login")
     @CrossOrigin(origins = "*")
-    public BaseUser getBaseUserByEmail(@PathVariable("email") String email) {
+    public BaseUser getBaseUserByEmail(String email) {
         return repository.findBaseUsersByEmail(email);
     }
 

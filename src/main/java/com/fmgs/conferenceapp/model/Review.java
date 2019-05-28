@@ -3,7 +3,7 @@ package com.fmgs.conferenceapp.model;
 import java.util.List;
 
 public class Review {
-
+    //change from list to map<reviewerID,qualifier>
     private List<Qualifiers> firstReview;
     private List<Qualifiers> secondReview;
 
