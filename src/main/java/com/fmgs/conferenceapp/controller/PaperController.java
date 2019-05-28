@@ -33,15 +33,27 @@ public class PaperController {
         repository.save(paper);
     }
 
-//    @PostMapping("papers/review")
-//    @CrossOrigin(origins = "*")
-//    public Paper reviewPaper(@RequestBody Map<String, String> params, int reviewInt){
-//        Paper toBeReviewed = repository.getPaperById(params.get("id"));
-//        reviewCtrl.addReview(reviewInt);
-//        if (toBeReviewed != null){
-//            toBeReviewed.setReviewResults(reviewCtrl);
-//        }
-//        return toBeReviewed;
-//    }
+    @PostMapping("papers/review")
+    @CrossOrigin(origins = "*")
+    public Paper reviewPaper(@RequestBody Map<String, String> params, String reviewerID, int reviewInt){
+        Paper toBeReviewed = repository.getPaperById(params.get("id"));
+        Review rev = new Review();
+        rev.addReview(reviewerID, reviewInt);
+        if (toBeReviewed != null){
+            repository.getPaperById(params.get("id")).setReviewResults(rev);
+        }
+        return toBeReviewed;
+    }
 
+    @PostMapping("papers/rereview")
+    @CrossOrigin(origins = "*")
+    public Paper rereviewPaper(@RequestBody Map<String, String> params, String rereviewerID, int rereviewInt){
+        Paper toBeRereviewed = repository.getPaperById(params.get("id"));
+        Review rerev = new Review();
+        rerev.reReview(rereviewerID, rereviewInt);
+        if (toBeRereviewed != null){
+            repository.getPaperById(params.get("id")).setReviewResults(rerev);
+        }
+        return toBeRereviewed;
+    }
 }
