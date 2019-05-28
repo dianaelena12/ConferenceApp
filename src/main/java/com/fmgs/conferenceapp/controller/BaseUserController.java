@@ -45,9 +45,4 @@ public class BaseUserController {
         return repository.findBaseUsersByEmail(email);
     }
 
-    @GetMapping("/users/login")
-    @CrossOrigin(origins = "*")
-    public BaseUser getBaseUserByEmailAndPassword(@RequestBody Map<String, String> params) {
-        return repository.findBaseUsersByEmailAndPassword(params.get("email"), params.get("password"));
-    }
 }

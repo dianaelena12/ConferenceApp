@@ -4,12 +4,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Document("paper")
 public class Paper {
     @Id
     public String id;
-    @JsonProperty("author_id")
-    private String authorID;
+    @JsonProperty("authors_id")
+    private List<String> authorsID;
     @JsonProperty("conference_id")
     private String conferenceID;
     @JsonProperty("paper_url")
@@ -21,16 +23,16 @@ public class Paper {
     @JsonProperty("meta_data")
     private String metaData;
 
-    public Paper(String authorID, String conferenceID, String paperURL, Review reviewResults, String metaData) {
-        this.authorID = authorID;
+    public Paper(List<String> authorsID, String conferenceID, String paperURL, Review reviewResults, String metaData) {
+        this.authorsID = authorsID;
         this.conferenceID = conferenceID;
         this.paperURL = paperURL;
         this.reviewResults = reviewResults;
         this.metaData = metaData;
     }
 
-    public Paper(String authorID, String conferenceID, String abstractURL, Review reviewResults) {
-        this.authorID = authorID;
+    public Paper(List<String> authorsID, String conferenceID, String abstractURL, Review reviewResults) {
+        this.authorsID = authorsID;
         this.conferenceID = conferenceID;
         this.abstractURL = abstractURL;
         this.reviewResults = reviewResults;
@@ -39,12 +41,12 @@ public class Paper {
     public Paper() {
     }
 
-    public String getAuthorID() {
-        return authorID;
+    public List<String> getAuthorsID() {
+        return authorsID;
     }
 
-    public void setAuthorID(String authorID) {
-        this.authorID = authorID;
+    public void setAuthorsID(List<String> authorsID) {
+        this.authorsID = authorsID;
     }
 
     public String getConferenceID() {
