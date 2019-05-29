@@ -1,14 +1,14 @@
 package com.fmgs.conferenceapp.controller;
 
 import com.fmgs.conferenceapp.model.Paper;
-import com.fmgs.conferenceapp.model.Qualifiers;
 import com.fmgs.conferenceapp.model.Review;
 import com.fmgs.conferenceapp.repository.PaperRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class PaperController {
@@ -27,9 +27,24 @@ public class PaperController {
         return repository.findAll();
     }
 
-    @PostMapping("papers/post")
+    @PostMapping("papers/post-paper")
     @CrossOrigin(origins = "*")
-    public void postPaper(@RequestBody Paper paper) {
+    public ResponseEntity<String> postPaper(@RequestBody Paper paper) {
+        Paper oldPaper = repository.getPaperByAuthorsIDAndConferenceID(paper.getAuthorsID(), paper.getConferenceID());
+        if (oldPaper != null) {
+            paper.setAbstractURL(oldPaper.getAbstractURL());
+            repository.deleteById(oldPaper.id);
+            repository.save(paper);
+            return new ResponseEntity<>("Paper was added successfully!", HttpStatus.OK);
+        } else {
+            repository.save(paper);
+            return new ResponseEntity<>("New object of type paper was created successfully!", HttpStatus.OK);
+        }
+    }
+
+    @PostMapping("papers/post-abstract")
+    @CrossOrigin(origins = "*")
+    public void postAbstract(@RequestBody Paper paper) {
         repository.save(paper);
     }
 
