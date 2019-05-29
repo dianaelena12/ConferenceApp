@@ -14,7 +14,6 @@ import java.util.Map;
 public class PaperController {
 
     private PaperRepository repository;
-    private Review reviewCtrl;
 
     @Autowired
     public PaperController(PaperRepository repository) {
@@ -27,21 +26,30 @@ public class PaperController {
         return repository.findAll();
     }
 
+    @GetMapping("/papers/by_id")
+    @CrossOrigin(origins = "*")
+    public Paper getPapersByID(String paperID){
+        return repository.findPaperById(paperID);
+    }
+
     @PostMapping("papers/post")
     @CrossOrigin(origins = "*")
     public void postPaper(@RequestBody Paper paper) {
         repository.save(paper);
     }
 
-//    @PostMapping("papers/review")
-//    @CrossOrigin(origins = "*")
-//    public Paper reviewPaper(@RequestBody Map<String, String> params, int reviewInt){
-//        Paper toBeReviewed = repository.getPaperById(params.get("id"));
-//        reviewCtrl.addReview(reviewInt);
-//        if (toBeReviewed != null){
-//            toBeReviewed.setReviewResults(reviewCtrl);
-//        }
-//        return toBeReviewed;
-//    }
+    @PostMapping("papers/review")
+    @CrossOrigin(origins = "*")
+    public Paper reviewPaper(String paper_id, String reviewer, Integer review_int){
+        System.out.println(getPapersByID(paper_id));
+        repository.findPaperById(paper_id).getReviewResults().addReview(reviewer, review_int);
+        return repository.findPaperById(paper_id);
+    }
 
+    @PostMapping("papers/reReview")
+    @CrossOrigin(origins = "*")
+    public Paper reReviewPaper(String paperID, String reReviewerID, int reReviewInt){
+        repository.findPaperById(paperID).getReviewResults().reReview(reReviewerID, reReviewInt);
+        return repository.findPaperById(paperID);
+    }
 }
