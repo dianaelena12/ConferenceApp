@@ -1,6 +1,7 @@
 package com.fmgs.conferenceapp.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Map;
@@ -8,6 +9,8 @@ import java.util.Map;
 @Document("conference")
 public class Conference {
 
+    @Id
+    public String id;
     private Date eventDate;
     @JsonProperty("app_deadline")
     private Date applicationDeadline;

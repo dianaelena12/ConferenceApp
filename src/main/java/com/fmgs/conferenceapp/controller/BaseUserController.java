@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class BaseUserController {
@@ -43,6 +42,12 @@ public class BaseUserController {
     @CrossOrigin(origins = "*")
     public BaseUser getBaseUserByEmail(String email) {
         return repository.findBaseUsersByEmail(email);
+    }
+
+    @GetMapping("users/reviewers")
+    @CrossOrigin(origins = "*")
+    public List<BaseUser> getAllReviewers() {
+        return repository.getAllByUserStatus("REVIEWER");
     }
 
 }

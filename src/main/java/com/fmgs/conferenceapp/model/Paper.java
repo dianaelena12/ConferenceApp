@@ -4,14 +4,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
-
 @Document("paper")
 public class Paper {
+    //add subject of paper, nrOfPages , name of the paper
     @Id
     public String id;
     @JsonProperty("authors_id")
-    private List<String> authorsID;
+    private String authorsID;
     @JsonProperty("conference_id")
     private String conferenceID;
     @JsonProperty("paper_url")
@@ -20,32 +19,64 @@ public class Paper {
     private String abstractURL;
     @JsonProperty("review_results")
     private Review reviewResults;
-    @JsonProperty("meta_data")
-    private String metaData;
+    @JsonProperty("additional_info")
+    private String additionalInfo;
+    @JsonProperty("paper_name")
+    private String paperName;
+    private String paperSubject;
 
-    public Paper(List<String> authorsID, String conferenceID, String paperURL, Review reviewResults, String metaData) {
+    //forget about the list, only one author
+    public Paper(String authorsID, String conferenceID, String paperURL, String additionalInfo, String paperName, String paperSubject) {
         this.authorsID = authorsID;
         this.conferenceID = conferenceID;
         this.paperURL = paperURL;
-        this.reviewResults = reviewResults;
-        this.metaData = metaData;
+        this.reviewResults = new Review();
+        this.additionalInfo = additionalInfo;
+        this.paperName = paperName;
+        this.paperSubject = paperSubject;
     }
 
-    public Paper(List<String> authorsID, String conferenceID, String abstractURL, Review reviewResults) {
+    public Paper(String authorsID, String conferenceID, String abstractURL, String paperName, String paperSubject) {
         this.authorsID = authorsID;
         this.conferenceID = conferenceID;
         this.abstractURL = abstractURL;
-        this.reviewResults = reviewResults;
+        this.reviewResults = new Review();
+        this.paperSubject = paperSubject;
+        this.paperName = paperName;
     }
 
     public Paper() {
     }
 
-    public List<String> getAuthorsID() {
+    public String getAdditionalInfo() {
+        return additionalInfo;
+    }
+
+    public void setAdditionalInfo(String additionalInfo) {
+        this.additionalInfo = additionalInfo;
+    }
+
+    public String getPaperName() {
+        return paperName;
+    }
+
+    public void setPaperName(String paperName) {
+        this.paperName = paperName;
+    }
+
+    public String getPaperSubject() {
+        return paperSubject;
+    }
+
+    public void setPaperSubject(String paperSubject) {
+        this.paperSubject = paperSubject;
+    }
+
+    public String getAuthorsID() {
         return authorsID;
     }
 
-    public void setAuthorsID(List<String> authorsID) {
+    public void setAuthorsID(String authorsID) {
         this.authorsID = authorsID;
     }
 
