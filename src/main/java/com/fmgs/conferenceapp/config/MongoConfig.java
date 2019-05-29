@@ -12,6 +12,12 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
             execute mongo in cmd
         ->use conference (name of the db)
         ->db.dropDatabase()
+
+    How to delete a collection:
+        ->in C:\Program Files\MongoDB\Server\4.0\bin
+            execute mongo in cmd
+        ->use conference (name of the db)
+        -> db.name_of_collection.drop()
  */
 
 
