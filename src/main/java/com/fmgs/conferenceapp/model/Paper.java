@@ -18,7 +18,7 @@ public class Paper {
     @JsonProperty("abstract_url")
     private String abstractURL;
     @JsonProperty("review_results")
-    private Review reviewResults;
+    private Review reviewResults = new Review();
     @JsonProperty("additional_info")
     private String additionalInfo;
     @JsonProperty("paper_name")
@@ -30,7 +30,6 @@ public class Paper {
         this.authorsID = authorsID;
         this.conferenceID = conferenceID;
         this.paperURL = paperURL;
-        this.reviewResults = new Review();
         this.additionalInfo = additionalInfo;
         this.paperName = paperName;
         this.paperSubject = paperSubject;
@@ -40,7 +39,6 @@ public class Paper {
         this.authorsID = authorsID;
         this.conferenceID = conferenceID;
         this.abstractURL = abstractURL;
-        this.reviewResults = new Review();
         this.paperSubject = paperSubject;
         this.paperName = paperName;
     }
@@ -108,7 +106,8 @@ public class Paper {
         return reviewResults;
     }
 
-    public void setReviewResults(Review reviewResults) {
-        this.reviewResults = reviewResults;
+    public void setReviewResults(String reviewer) {
+        System.out.println(this.reviewResults.getFirstReview());
+        this.reviewResults.addReviewerKey(reviewer);
     }
 }

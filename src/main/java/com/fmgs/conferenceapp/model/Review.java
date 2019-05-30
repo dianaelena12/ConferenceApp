@@ -1,12 +1,12 @@
 package com.fmgs.conferenceapp.model;
 
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Review {
 
-    private Map<String,Qualifiers> firstReview;
-    private Map<String,Qualifiers> secondReview;
+    private Map<String, Qualifiers> firstReview = new HashMap<>();
+    private Map<String, Qualifiers> secondReview = new HashMap<>();
 
     public Review() {
     }
@@ -35,5 +35,9 @@ public class Review {
     public void reReview(String reviewer, int qualifier) {
         Qualifiers qualifierEnum = Qualifiers.valueOf(qualifier);
         secondReview.put(reviewer, qualifierEnum);
+    }
+
+    public void addReviewerKey(String reviewer) {
+        firstReview.put(reviewer, null);
     }
 }

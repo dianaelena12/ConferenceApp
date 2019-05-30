@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class PaperController {
@@ -56,6 +57,20 @@ public class PaperController {
         repository.save(paper);
         return new ResponseEntity<>("abstract submitted with success", HttpStatus.OK);
 
+    }
+
+    @PutMapping("papers/assign-reviewer")
+    @CrossOrigin(origins = "*")
+    public ResponseEntity<String> assignReviewer(@RequestBody Map<String, String> requestBody) {
+        String reviewerId = requestBody.get("author_id");
+        String paperId = requestBody.get("paper_id");
+
+        Paper paper = repository.getPaperById(paperId);
+
+        paper.setReviewResults(reviewerId);
+
+        repository.save(paper);
+        return new ResponseEntity<>("Reviewer added with success!", HttpStatus.OK);
     }
 
 

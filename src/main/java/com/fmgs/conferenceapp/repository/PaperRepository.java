@@ -15,5 +15,7 @@ public interface PaperRepository extends MongoRepository<Paper, String> {
 
     void deleteById(String Id);
 
+    Paper getPaperById(String id);
+
     //when a reviewer is assigned to review a paper,we'll add a key in the map of <reviewers,qualifier>
 }
