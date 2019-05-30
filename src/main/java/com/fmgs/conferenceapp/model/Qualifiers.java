@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum Qualifiers {
-    STRONG_ACCEPT(1),
-    ACCEPT(2),
-    WEAK_ACCEPT(3),
-    STRONG_REJECT(4),
-    REJECT(5),
-    WEAK_REJECT(6);
+    STRONG_ACCEPT(6),
+    ACCEPT(5),
+    WEAK_ACCEPT(4),
+    STRONG_REJECT(3),
+    REJECT(2),
+    WEAK_REJECT(1);
 
 
     private static Map map = new HashMap<>();

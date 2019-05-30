@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface ConferenceRepository extends MongoRepository<Conference, String> {
 
     Conference getConferenceByEventName(String eventName);
+
+    Conference getConferenceById(String id);
 }

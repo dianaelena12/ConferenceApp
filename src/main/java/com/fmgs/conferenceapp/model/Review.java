@@ -29,7 +29,10 @@ public class Review {
 
     public void addReview(String reviewer, int qualifier) {
         Qualifiers qualifierEnum = Qualifiers.valueOf(qualifier);
-        firstReview.put(reviewer, qualifierEnum);
+        if (firstReview.get(reviewer) == null) {
+            firstReview.remove(reviewer);
+            firstReview.put(reviewer, qualifierEnum);
+        }
     }
 
     public void reReview(String reviewer, int qualifier) {

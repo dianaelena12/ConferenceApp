@@ -1,6 +1,7 @@
 package com.fmgs.conferenceapp.controller;
 
 import com.fmgs.conferenceapp.model.Paper;
+import com.fmgs.conferenceapp.model.Qualifiers;
 import com.fmgs.conferenceapp.model.Review;
 import com.fmgs.conferenceapp.repository.PaperRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 public class PaperController {
@@ -74,4 +76,26 @@ public class PaperController {
     }
 
 
+    @PutMapping("papers/assign-review")
+    @CrossOrigin(origins = "*")
+    public ResponseEntity<String> addReview(@RequestBody Map<String, String> requestBody) {
+        String reviewer = requestBody.get("author_id");
+        Integer qualifier = Integer.parseInt(requestBody.get("qualifier"));
+        String paperId = requestBody.get("paper_id");
+
+        Paper paper = repository.getPaperById(paperId);
+        paper.addReview(reviewer, qualifier);
+        repository.save(paper);
+        return new ResponseEntity<>("Review added successfully!", HttpStatus.OK);
+
+    }
+
+
+    @GetMapping("papers/get-accepted-papers")
+    @CrossOrigin(origins = "*")
+    public List<Paper> acceptedPapers() {
+        return repository.findAll().stream().filter(paper ->
+                paper.getReviewResults().getFirstReview().values().stream()
+                        .mapToInt(Qualifiers::getValue).average().orElse(0) >= 5).collect(Collectors.toList());
+    }
 }

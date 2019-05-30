@@ -7,7 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RestController
 public class BaseUserController {
@@ -47,7 +50,10 @@ public class BaseUserController {
     @GetMapping("users/reviewers")
     @CrossOrigin(origins = "*")
     public List<BaseUser> getAllReviewers() {
-        return repository.getAllByUserStatus("REVIEWER");
+        List<BaseUser> reviewers = repository.getAllByUserStatus("REVIEWER");
+        List<BaseUser> chairs = repository.getAllByUserStatus("CHAIR");
+        List<BaseUser> cochairs = repository.getAllByUserStatus("CO-CHAIR");
+        return Stream.of(reviewers, chairs, cochairs).flatMap(Collection::stream).collect(Collectors.toList());
     }
 
 }
