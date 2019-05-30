@@ -30,6 +30,10 @@ public class PaperController {
     @PostMapping("papers/post-paper")
     @CrossOrigin(origins = "*")
     public ResponseEntity<String> postPaper(@RequestBody Paper paper) {
+
+        if (repository.getPaperByPaperURL(paper.getPaperURL()) != null) {
+            return new ResponseEntity<>("This paper is already in the db", HttpStatus.BAD_REQUEST);
+        }
         Paper oldPaper = repository.getPaperByAuthorsIDAndConferenceID(paper.getAuthorsID(), paper.getConferenceID());
         if (oldPaper != null) {
             paper.setAbstractURL(oldPaper.getAbstractURL());
@@ -44,19 +48,15 @@ public class PaperController {
 
     @PostMapping("papers/post-abstract")
     @CrossOrigin(origins = "*")
-    public void postAbstract(@RequestBody Paper paper) {
+    public ResponseEntity<String> postAbstract(@RequestBody Paper paper) {
+        if (repository.getPaperByAbstractURL(paper.getAbstractURL()) != null) {
+            return new ResponseEntity<>("There already exists a paper with this abstract", HttpStatus.BAD_REQUEST);
+        }
+
         repository.save(paper);
+        return new ResponseEntity<>("abstract submitted with success", HttpStatus.OK);
+
     }
 
-//    @PostMapping("papers/review")
-//    @CrossOrigin(origins = "*")
-//    public Paper reviewPaper(@RequestBody Map<String, String> params, int reviewInt){
-//        Paper toBeReviewed = repository.getPaperById(params.get("id"));
-//        reviewCtrl.addReview(reviewInt);
-//        if (toBeReviewed != null){
-//            toBeReviewed.setReviewResults(reviewCtrl);
-//        }
-//        return toBeReviewed;
-//    }
 
 }
