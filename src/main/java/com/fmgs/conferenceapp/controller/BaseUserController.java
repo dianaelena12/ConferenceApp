@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class BaseUserController {
@@ -39,15 +38,16 @@ public class BaseUserController {
     }
 
 
-    @GetMapping("/users/{email}")
+    @GetMapping("/users/login")
     @CrossOrigin(origins = "*")
-    public BaseUser getBaseUserByEmail(@PathVariable("email") String email) {
+    public BaseUser getBaseUserByEmail(String email) {
         return repository.findBaseUsersByEmail(email);
     }
 
-    @GetMapping("/users/login")
+    @GetMapping("users/reviewers")
     @CrossOrigin(origins = "*")
-    public BaseUser getBaseUserByEmailAndPassword(@RequestBody Map<String, String> params) {
-        return repository.findBaseUsersByEmailAndPassword(params.get("email"), params.get("password"));
+    public List<BaseUser> getAllReviewers() {
+        return repository.getAllByUserStatus("REVIEWER");
     }
+
 }
