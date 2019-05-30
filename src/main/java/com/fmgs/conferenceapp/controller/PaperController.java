@@ -1,6 +1,7 @@
 package com.fmgs.conferenceapp.controller;
 
 import com.fmgs.conferenceapp.model.Paper;
+import com.fmgs.conferenceapp.model.Qualifiers;
 import com.fmgs.conferenceapp.model.Review;
 import com.fmgs.conferenceapp.repository.PaperRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 public class PaperController {
@@ -88,4 +90,12 @@ public class PaperController {
 
     }
 
+
+    @GetMapping("papers/get-accepted-papers")
+    @CrossOrigin(origins = "*")
+    public List<Paper> acceptedPapers() {
+        return repository.findAll().stream().filter(paper ->
+                paper.getReviewResults().getFirstReview().values().stream()
+                        .mapToInt(Qualifiers::getValue).average().orElse(0) >= 5).collect(Collectors.toList());
+    }
 }
