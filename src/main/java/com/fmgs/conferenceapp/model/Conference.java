@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Document("conference")
@@ -14,7 +15,7 @@ public class Conference {
     private Date eventDate;
     @JsonProperty("app_deadline")
     private Date applicationDeadline;
-    private Map<String, Event> itinerary;
+    private Map<String, Event> itinerary = new HashMap<>();
     @JsonProperty("event_name")
     private String eventName;
 
@@ -63,5 +64,9 @@ public class Conference {
 
     public void setItinerary(Map<String, Event> itinerary) {
         this.itinerary = itinerary;
+    }
+
+    public void addEvent(String room, Event event) {
+        this.itinerary.put(room, event);
     }
 }
