@@ -107,7 +107,10 @@ public class Paper {
     }
 
     public void setReviewResults(String reviewer) {
-        System.out.println(this.reviewResults.getFirstReview());
         this.reviewResults.addReviewerKey(reviewer);
+    }
+
+    public void addReview(String reviewerId, int qualifier) {
+        this.reviewResults.addReview(reviewerId, qualifier);
     }
 }

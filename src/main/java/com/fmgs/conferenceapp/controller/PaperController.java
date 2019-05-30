@@ -74,4 +74,18 @@ public class PaperController {
     }
 
 
+    @PutMapping("papers/assign-review")
+    @CrossOrigin(origins = "*")
+    public ResponseEntity<String> addReview(@RequestBody Map<String, String> requestBody) {
+        String reviewer = requestBody.get("author_id");
+        Integer qualifier = Integer.parseInt(requestBody.get("qualifier"));
+        String paperId = requestBody.get("paper_id");
+
+        Paper paper = repository.getPaperById(paperId);
+        paper.addReview(reviewer, qualifier);
+        repository.save(paper);
+        return new ResponseEntity<>("Review added successfully!", HttpStatus.OK);
+
+    }
+
 }
